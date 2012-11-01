@@ -6,7 +6,7 @@ package IE.src;
 public class ClientProxy extends CommonProxy
 {
 		public void preInit()
-		//Preloaded textures
+		// Preloaded Textures //
 		{
 			MinecraftForgeClient.preloadTexture("/Textures/IEBlocks.png");
 		}
