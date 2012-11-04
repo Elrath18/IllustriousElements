@@ -16,18 +16,12 @@ import cpw.mods.fml.common.asm.SideOnly;
 	    }
 
 	    @SideOnly(Side.CLIENT)
-
-	    /**
-	     * Gets an icon index based on an item's damage value
-	     */
+	    
 	    public int getIconFromDamage(int par1)
 	    {
 	        return IllustriousElementsMain.blockCSand.getBlockTextureFromSideAndMetadata(2, BlockCloth.getBlockFromDye(par1));
 	    }
-
-	    /**
-	     * Returns the metadata of the block which this Item (ItemBlock) can place
-	     */
+	    
 	    public int getMetadata(int par1)
 	    {
 	        return par1;

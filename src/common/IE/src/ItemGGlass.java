@@ -20,18 +20,12 @@ public class ItemGGlass extends ItemBlock
     }
 
     @SideOnly(Side.CLIENT)
-
-    /**
-     * Gets an icon index based on an item's damage value
-     */
+    
     public int getIconFromDamage(int par1)
     {
         return IllustriousElementsMain.blockGGlass.getBlockTextureFromSideAndMetadata(2, BlockCloth.getBlockFromDye(par1));
     }
-
-    /**
-     * Returns the metadata of the block which this Item (ItemBlock) can place
-     */
+    
     public int getMetadata(int par1)
     {
         return par1;
@@ -39,8 +33,8 @@ public class ItemGGlass extends ItemBlock
 
     public String getItemNameIS(ItemStack par1ItemStack)
     {
-        return    BlockGGlass.dyeColorNames[par1ItemStack.getItemDamage()] +"Glass";
+        return    BlockGGlass.dyeColorNames[par1ItemStack.getItemDamage()] +"Glowing Glass";
     }
    
-	}
+}
 

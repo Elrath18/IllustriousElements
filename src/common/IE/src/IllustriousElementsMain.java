@@ -32,8 +32,9 @@ public class IllustriousElementsMain
 	@SidedProxy(clientSide = "IE.src.ClientProxy",serverSide = "IE.src.CommonProxy")
 	public static CommonProxy proxy;
 	
-	static Configuration config = new Configuration(new File(cpw.mods.fml.common.Loader.instance().getConfigDir(),"IllustriousElements/configMain.cfg"));
-	private static String mystring = ConfigurationProperties();
+		// Variables // 
+		static Configuration config = new Configuration(new File(cpw.mods.fml.common.Loader.instance().getConfigDir(),"IllustriousElements/configMain.cfg"));
+		private static String mystring = ConfigurationProperties();
 		public static int SGID; 
 		public static int CSID;
 		public static int RSID; 
@@ -41,23 +42,24 @@ public class IllustriousElementsMain
 		public static int GGID;
 		public static int GRSID;
 		
-		// Blocks // Configs //
+		// Blocks //
 		public static final Block blockSGlass = (new IE.src.BlockSGlass(SGID)).setBlockName("Stained Glass");
 		public static final Block blockCSand = (new IE.src.BlockCSand(CSID)).setBlockName("Colored Glass");
-		public static final Block blockEBlocks = (new IE.src.BlockEBlocks(EBID)).setBlockName("Eric's Blocks");
+		public static final Block blockEBlocks = (new IE.src.BlockEBlocks(EBID)).setBlockName("Extra Blocks");
 		public static final Block blockGGlass = (new IE.src.BlockGGlass(GGID)).setBlockName("Glowing Glass");
 	
-		// Item // Configs //
+		// Item //
 		public static final Item itemRSand = (new IE.src.ItemRSand(RSID)).setItemName("Refined Sand");
 		public static final Item itemGRSand = (new IE.src.ItemGRSand(GRSID)).setItemName("Glowing Refined Sand");
 		
+		// Configuration // Block - Item ID's //
 		public static String ConfigurationProperties()
 	{
 		config.load();
 		SGID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"StainedGlassBlockID", 1200).value);
 		CSID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"ColoredGlassBlockID", 1201).value);
 		RSID = Integer.parseInt(config.getItem(Configuration.CATEGORY_ITEM,"RefinedSandItemID", 30010).value);
-		EBID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"Eric'sBlocksBlockID", 1202).value);
+		EBID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"ExtraBlocksBlockID", 1202).value);
 		GGID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"GlowingGlassBlockID", 1203).value);
 		GRSID = Integer.parseInt(config.getItem(Configuration.CATEGORY_ITEM,"GlowingRefinedSandItemID", 30020).value);
 		config.save();
@@ -80,31 +82,43 @@ public class IllustriousElementsMain
 	{
 		proxy.init();
 		//// Block Names ////
+		
+			// Stained Glass //
 		for(int i = 0; i < BlockSGlass.dyeColorNames.length; i++)
 		{
 			LanguageRegistry.addName(new ItemStack(blockSGlass, 1,i),BlockSGlass.dyeColorNames[i]+ " Stained Glass");
 		}
+		
+			// Colored Sand //
 		for(int k = 0; k < BlockCSand.dyeColorNames.length; k++)
 		{
 			LanguageRegistry.addName(new ItemStack(blockCSand, 1,k),BlockCSand.dyeColorNames[k]+ " Sand");
 		}
+		
+			// Glowing Glass //					
 		for(int z = 0; z < BlockGGlass.dyeColorNames.length; z++)
 		{
 			LanguageRegistry.addName(new ItemStack(blockGGlass, 1,z),BlockGGlass.dyeColorNames[z]+ " Glowing Glass");
 		}
+		//// Item Names ////
+		
+			// Refined Sand //
 		for(int i = 0; i < ItemRSand.dyeColorNames.length; i++)
 		{
 			LanguageRegistry.addName(new ItemStack(itemRSand, 1,i),ItemRSand.dyeColorNames[i]+ " Refined Sand");
 		}
+		
+			// Glowing Refined Sand //
 		for(int i = 0; i < ItemGRSand.dyeColorNames.length; i++)
 		{
 			LanguageRegistry.addName(new ItemStack(itemGRSand, 1,i),ItemRSand.dyeColorNames[i]+ " Glowing Refined Sand");
 		}
+		
+		//// Extra Block Names ////
 		LanguageRegistry.addName(new ItemStack(blockEBlocks, 1,0), "Block 1");
 		LanguageRegistry.addName(new ItemStack(blockEBlocks, 1,1), "Block 2");
-		
-
 	}
+		
 		@PostInit	
 		public void postLoad(FMLPostInitializationEvent event)
 	{
@@ -122,21 +136,32 @@ public class IllustriousElementsMain
 			{
 				FurnaceRecipes.smelting().addSmelting(this.itemGRSand.shiftedIndex,i, new ItemStack(this.blockGGlass,1,i)); 
 			}
+															
+			// Colored Sand //
+			for(int j = 0; j < BlockCSand.dyeColorNames.length; j++)
+			{
+				GameRegistry.addRecipe(new ItemStack(blockCSand, 8,j), new Object []
+					{"SSS","SDS","SSS", 'S', Block.sand , 'D', new ItemStack(Item.dyePowder,1,j)});
+			}
+			
+			// Extra Block //
+			GameRegistry.addSmelting(Block.stone.blockID,new ItemStack(blockEBlocks,1,0), 0f);
+			
+			GameRegistry.addRecipe(new ItemStack(blockEBlocks, 8,1), new Object []
+					{"SSS","SDS","SSS", 'S', new ItemStack(Block.stone) , 'D', new ItemStack(Item.ingotIron)});
+			
+		//// Item Recipes ////
 			
 			// Refined Sand //
 			for(int j = 0; j < ItemRSand.dyeColorNames.length; j++)
 			{
-			GameRegistry.addShapelessRecipe(new ItemStack(itemRSand, 1,j), new Object []{new ItemStack(blockCSand,1,j)});
+				GameRegistry.addShapelessRecipe(new ItemStack(itemRSand, 1,j), new Object []{new ItemStack(blockCSand,1,j)});
 			}
 			
-			
-			// Colored Sand //
-			for(int j = 0; j < BlockCSand.dyeColorNames.length; j++)
+			// Glowing Refined Sand //
+			for(int j = 0; j < ItemRSand.dyeColorNames.length; j++)
 			{
-			GameRegistry.addRecipe(new ItemStack(blockCSand, 8,j), new Object []
-					{"SSS","SDS","SSS", 'S', Block.sand , 'D', new ItemStack(Item.dyePowder,1,j)});
+				GameRegistry.addShapelessRecipe(new ItemStack(itemGRSand, 1,j), new Object []{new ItemStack(itemRSand,1,j),new ItemStack(Item.lightStoneDust,1)});
 			}
-			
+		}	
 	}
-}
-
