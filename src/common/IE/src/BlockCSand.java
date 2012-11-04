@@ -12,9 +12,8 @@ import net.minecraft.src.World;
 
 public class BlockCSand extends Block
 {
-	 public static final String[] dyeColorNames = new String[] {"Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "Light Blue", "Magenta", "Orange", "White"};
-	    public static final int[] dyeColors = new int[] {1973019, 11743532, 3887386, 5320730, 2437522, 8073150, 2651799, 2651799, 4408131, 14188952, 4312372, 14602026, 6719955, 12801229, 15435844, 15790320};
-
+	public static final String[] dyeColorNames = new String[] {"Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "Silver", "Gray", "Pink", "Lime", "Yellow", "Light Blue", "Magenta", "Orange", "White"};
+	 
 	public BlockCSand(int par1) 
 	{
 		super(par1, Material.sand);
@@ -29,29 +28,19 @@ public class BlockCSand extends Block
 	    {
 	        super(par1, par2, par3Material);
 	    }
-	 /** Do blocks fall instantly to where they stop or do they fall over time */
-    public static boolean fallInstantly = false;
-
-    /**
-     * Called whenever the block is added into the world. Args: world, x, y, z
-     */
+	
+    public static boolean fallInstantly = true;
+    
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
         par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate());
     }
-
-    /**
-     * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
-     * their own) Args: x, y, z, neighbor blockID
-     */
+    
     public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
         par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate());
     }
-
-    /**
-     * Ticks the block if it's been scheduled
-     */
+    
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
@@ -59,10 +48,7 @@ public class BlockCSand extends Block
             this.tryToFall(par1World, par2, par3, par4);
         }
     }
-
-    /**
-     * If there is space to fall below will start this block falling
-     */
+    
     private void tryToFall(World par1World, int par2, int par3, int par4)
     {
         if (canFallBelow(par1World, par2, par3 - 1, par4) && par3 >= 0)
@@ -73,9 +59,7 @@ public class BlockCSand extends Block
             {
                 if (!par1World.isRemote)
                 {
-                    EntityFallingSand var9 = new EntityFallingSand(par1World, (double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), this.blockID, par1World.getBlockMetadata(par2, par3, par4));
-                    this.func_82520_a(var9);
-                    par1World.spawnEntityInWorld(var9);
+                   return;
                 }
             }
             else
@@ -95,19 +79,13 @@ public class BlockCSand extends Block
         }
     }
 
-    protected void func_82520_a(EntityFallingSand par1EntityFallingSand) {}
-
-    /**
-     * How many world ticks before ticking
-     */
+    protected void func_82520_a(EntityFallingSand var9) {}
+    
     public int tickRate()
     {
         return 3;
     }
-
-    /**
-     * Checks to see if the sand can fall into the block below it
-     */
+   
     public static boolean canFallBelow(World par0World, int par1, int par2, int par3)
     {
         int var4 = par0World.getBlockId(par1, par2, par3);

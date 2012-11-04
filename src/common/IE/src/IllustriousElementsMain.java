@@ -19,6 +19,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -57,7 +58,7 @@ public class IllustriousElementsMain
 	{
 		config.load();
 		SGID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"StainedGlassBlockID", 1200).value);
-		CSID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"ColoredGlassBlockID", 1201).value);
+		CSID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"ColoredSandBlockID", 1201).value);
 		RSID = Integer.parseInt(config.getItem(Configuration.CATEGORY_ITEM,"RefinedSandItemID", 30010).value);
 		EBID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"ExtraBlocksBlockID", 1202).value);
 		GGID = Integer.parseInt(config.getBlock(Configuration.CATEGORY_BLOCK,"GlowingGlassBlockID", 1203).value);
@@ -116,7 +117,7 @@ public class IllustriousElementsMain
 		
 		//// Extra Block Names ////
 		LanguageRegistry.addName(new ItemStack(blockEBlocks, 1,0), "Block 1");
-		LanguageRegistry.addName(new ItemStack(blockEBlocks, 1,1), "Block 2");
+		LanguageRegistry.addName(new ItemStack(blockEBlocks, 1,1), "Block 2");			
 	}
 		
 		@PostInit	
