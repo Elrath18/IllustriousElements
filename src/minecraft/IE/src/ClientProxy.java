@@ -8,7 +8,7 @@ public class ClientProxy extends CommonProxy
 		public void preInit()
 		// Preloaded Textures //
 		{
-			MinecraftForgeClient.preloadTexture("/Textures/IEBlocks.png");
+			MinecraftForgeClient.preloadTexture("/Textures/StainGlass.png");
 		}
 		
 		public void init()
