@@ -51,6 +51,7 @@ public class BlockCSand extends Block
     
     private void tryToFall(World par1World, int par2, int par3, int par4)
     {
+    	int meta = par1World.getBlockMetadata(par2, par3, par4);
         if (canFallBelow(par1World, par2, par3 - 1, par4) && par3 >= 0)
         {
             byte var8 = 32;
@@ -73,7 +74,7 @@ public class BlockCSand extends Block
 
                 if (par3 > 0)
                 {
-                    par1World.setBlockWithNotify(par2, par3, par4, this.blockID);
+                    par1World.setBlockAndMetadataWithNotify(par2, par3, par4, this.blockID, meta);
                 }
             }
         }
